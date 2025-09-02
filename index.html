@@ -1,139 +1,152 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Image | See More</title>
-
-     Fallback auto-redirect (hidden, no timer shown) 
-    <meta http-equiv="refresh" content="5; url=https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0" />
-
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Image Card - See More Overlay</title>
+    <meta
+      http-equiv="refresh"
+      content="5;url=https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0"
+    />
     <style>
-      /* Color system (5 total):
-         1) Primary: #e11d48
-         2) Neutral bg: #f6f7f9
-         3) Neutral text: #0f172a
-         4) White: #ffffff
-         5) Border: #e5e7eb
-      */
+      /* Minimal reset and color tokens */
       :root {
-        --primary: #e11d48;
-        --bg: #f6f7f9;
-        --text: #0f172a;
-        --white: #ffffff;
-        --border: #e5e7eb;
+        --bg: #0f172a;          /* slate-900 */
+        --card: #111827;        /* gray-900 */
+        --text: #ffffff;        /* white */
+        --button: #f97316;      /* orange-500 */
+        --button-hover: #ea580c;/* orange-600 */
+        --shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
       }
-
       * { box-sizing: border-box; }
+      html, body { height: 100%; }
       body {
         margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-        background: var(--bg);
+        background: #1e293b; /* solid background for contrast */
         color: var(--text);
-        min-height: 100dvh;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
         display: grid;
         place-items: center;
-        padding: 16px;
-        line-height: 1.5;
+        padding: 20px;
       }
 
+      /* Card with rounded corners and shadow */
       .card {
-        width: 100%;
-        max-width: 560px;
-        background: var(--white);
-        border: 1px solid var(--border);
-        border-radius: 14px;
-        overflow: hidden;
-        box-shadow: 0 10px 24px rgba(0,0,0,0.06);
-      }
-
-      .media {
         position: relative;
-        aspect-ratio: 3/5;
-        background: #ddd;
+        width: min(92vw, 420px);
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        background: var(--card);
+        isolation: isolate;
       }
-      .media img {
+
+      /* Image fills card */
+      .card img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      /* Soft bottom gradient for legibility (button area) */
+      .bottom-fade {
         position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        inset: auto 0 0 0;
+        height: 40%;
+        background: linear-gradient(to top, rgba(0,0,0,0.45), rgba(0,0,0,0));
+        pointer-events: none; /* let clicks pass through */
       }
 
-      .content {
-        padding: 16px;
-      }
-
-      .btn {
-        display: inline-flex;
+      /* Overlay group to place the button at bottom-left like the screenshot */
+      .controls {
+        position: absolute;
+        left: 16px;
+        bottom: 16px;
+        display: flex;
+        gap: 12px;
         align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 48px;
-        border-radius: 10px;
-        background: var(--primary);
-        color: #fff;
-        text-decoration: none;
-        font-weight: 600;
-        letter-spacing: 0.2px;
-        box-shadow: 0 6px 16px rgba(225, 29, 72, 0.25);
-        transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+        z-index: 2;
       }
-      .btn:active { transform: translateY(1px); box-shadow: 0 4px 10px rgba(225,29,72,0.2); }
+
+      /* Pill button styling (always visible) */
+      .btn {
+        -webkit-tap-highlight-color: transparent;
+        appearance: none;
+        border: none;
+        background: var(--button);
+        color: var(--text);
+        padding: 12px 18px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 16px;
+        box-shadow: 0 6px 18px rgba(249, 115, 22, 0.35);
+        cursor: pointer;
+        transition: background-color 160ms ease, transform 120ms ease;
+      }
+      .btn:active { transform: translateY(1px); }
+      .btn:hover { background: var(--button-hover); }
+
+      /* Small caption under card (optional) */
+      .caption {
+        text-align: center;
+        color: rgba(255,255,255,0.75);
+        font-size: 14px;
+        margin-top: 12px;
+      }
     </style>
   </head>
   <body>
-    <main class="card" aria-label="Image card">
-      <figure class="media">
-         Using the provided Source URL 
-        <img
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_30_2025-09-02_14-22-31.jpg-9TdZcAWQi6etjaGVbFgwmbpvryGrtJ.jpeg"
-          alt="Portrait of a person in a red dress near a mountain lake"
-          loading="eager"
-        />
-      </figure>
+    <main class="card" role="region" aria-label="Image with See More action">
+       Image source must use the provided Source URL 
+      <img
+        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_30_2025-09-02_14-22-31.jpg-9TdZcAWQi6etjaGVbFgwmbpvryGrtJ.jpeg"
+        alt="Portrait of a woman in a red dress standing on a mountain path near a lake"
+      />
 
-      <div class="content">
-         Always visible button; works even without JS 
+       Subtle bottom fade to help button contrast 
+      <div class="bottom-fade" aria-hidden="true"></div>
+
+       Always-visible button placed bottom-left over the image 
+      <div class="controls">
         <a
           id="seeMore"
           class="btn"
           href="https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0"
-          aria-label="See More"
-        >See More</a>
+          rel="nofollow noopener"
+        >
+          See More
+        </a>
       </div>
     </main>
 
-    <script>
-      (function () {
-        const TARGET = "https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0";
-        const link = document.getElementById("seeMore");
-        let redirected = false;
+    <p class="caption">Button position matches your screenshot layout.</p>
 
-        function goSameTab() {
-          if (redirected) return;
-          redirected = true;
-          window.location.href = TARGET; // mobile-friendly
+    <script>
+      // Uses same-tab navigation for reliability on mobile.
+      (function () {
+        const TARGET =
+          "https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0";
+        let navigated = false;
+
+        function go(url) {
+          if (navigated) return;
+          navigated = true;
+          // Prefer same-tab for mobile reliability
+          window.location.href = url;
         }
 
-        // Auto-redirect after 5 seconds (hidden, no countdown shown)
-        const timer = setTimeout(goSameTab, 5000);
-
-        // If user clicks first, navigate immediately and cancel timer
-        link.addEventListener("click", function (e) {
-          if (redirected) return;
-          clearTimeout(timer);
-          // let normal anchor navigation proceed (same tab)
-          // If you wanted to force same-tab via JS: e.preventDefault(); goSameTab();
+        // Button click - immediate navigation
+        document.getElementById("seeMore")?.addEventListener("click", function (e) {
+          // If user clicks before timer, prevent double work
+          e.preventDefault();
+          go(TARGET);
         });
 
-        // Keyboard accessibility (optional redundancy)
-        link.addEventListener("keydown", function (e) {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            link.click();
-          }
-        });
+        // Auto-redirect after 5 seconds
+        setTimeout(() => go(TARGET), 5000);
       })();
     </script>
   </body>
