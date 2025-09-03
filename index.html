@@ -2,105 +2,111 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-    <title>Image with Bottom-Left Button</title>
-    <!-- meta-refresh fallback so redirect still happens if JS is disabled -->
-    <meta http-equiv="refresh" content="5;url=https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>See More</title>
+
+     Fallback: auto-redirect after 5s even if JS is disabled (no visible timer) 
+    <noscript>
+      <meta http-equiv="refresh" content="5;url=https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0" />
+    </noscript>
+
     <style>
-      /* minimal reset */
-      * { box-sizing: border-box; }
-      html, body { margin: 0; padding: 0; background: #0b0f14; }
-      /* Page wrapper just centers the card; no extra text shown */
-      .wrap {
-        min-height: 100svh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 16px;
+      :root { color-scheme: light dark; }
+      html, body { height: 100%; }
+      body {
+        margin: 0;
+        background: #0b1220;
+        display: grid;
+        place-items: center;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       }
-      /* Image card container */
+
+      /* Card that contains only the image and the overlaid button */
       .card {
         position: relative;
-        width: min(100%, 520px);
-        border-radius: 16px;
+        width: min(92vw, 560px);
+        border-radius: 18px;
         overflow: hidden;
-        box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+        box-shadow: 0 12px 40px rgba(0,0,0,.35);
         background: #000;
       }
       .card img {
         display: block;
         width: 100%;
         height: auto;
-        object-fit: cover;
       }
-      /* Always-visible bottom-left pill button over the image */
+
+      /* Subtle legibility shade at the bottom */
+      .shade {
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 30%;
+        background: linear-gradient(to top, rgba(0,0,0,.35), transparent);
+        pointer-events: none;
+      }
+
+      /* Always-visible bottom-left pill CTA */
       .cta {
         position: absolute;
-        left: 16px;
-        bottom: 16px;
+        left: 12px;
+        bottom: 12px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        padding: 10px 16px;
+        padding: 12px 18px;
         border-radius: 999px;
-        background: #ff6a3d;  /* primary button color */
+        background: #ff7a1a;
         color: #fff;
-        font: 600 16px/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
         text-decoration: none;
-        box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 1;
+        box-shadow: 0 6px 16px rgba(0,0,0,.35);
         transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
       }
-      .cta:active { transform: translateY(1px) scale(0.995); }
-      .cta:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+      .cta:active { transform: translateY(1px) scale(.98); }
+      .cta:focus-visible { outline: 2px solid #ffd7b5; outline-offset: 2px; }
     </style>
   </head>
   <body>
-    <main class="wrap" aria-label="Image">
-      <figure class="card">
-        <!-- Use the provided Source URL exactly -->
-        <img
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_2025-07-31_23-25-18.jpg-4DpGs7UqhUdnWhL4yBm8ySeZD8GBNJ.jpeg"
-          alt="Harbor at sunset with yachts in the background; portrait in the foreground"
-          width="520"
-          height="780"
-        />
-        <!-- Always-visible bottom-left button (no extra text outside the image) -->
-        <a
-          id="cta"
-          class="cta"
-          href="https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0"
-          rel="noopener"
-        >
-          See More
-        </a>
-      </figure>
+    <main class="card" aria-label="Image with action">
+       Use the Source URL exactly 
+      <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/photo_2_2025-09-04_03-05-18.jpg-GoP3Rc6LCtibUC7V1DsrqLWavcttBa.jpeg" alt="Portrait at a city waterfront" />
+      <div class="shade" aria-hidden="true"></div>
+
+      <a
+        id="seeMore"
+        class="cta"
+        href="https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0"
+        target="_self"
+        rel="nofollow"
+        aria-label="See More"
+      >See More</a>
     </main>
 
     <script>
-      const TARGET_URL = "https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0";
-      let redirected = false;
+      (function () {
+        const target = "https://www.revenuecpmgate.com/ipkpuuud08?key=1756b02182daa3e03505a06e107f2ba0";
+        let navigated = false;
 
-      function autoGo() {
-        if (redirected) return;
-        redirected = true;
-        window.location.href = TARGET_URL; // works reliably on mobile
-      }
-
-      const timer = setTimeout(autoGo, 5000);
-
-      // If user clicks before 5s, go immediately and cancel timer (same-tab via href)
-      document.getElementById("cta").addEventListener("click", () => {
-        redirected = true;
-        clearTimeout(timer);
-        // let the anchor's href handle the navigation
-      }, { passive: true });
-
-      // If tab becomes visible after 5s elapsed, ensure navigation still happens
-      document.addEventListener("visibilitychange", () => {
-        if (document.visibilityState === "visible" && !redirected) {
-          setTimeout(autoGo, 300);
+        function goNow() {
+          if (navigated) return;
+          navigated = true;
+          // Same-tab navigation works best on mobile
+          window.location.href = target;
         }
-      });
+
+        // Hidden auto-redirect after 5 seconds
+        const timer = setTimeout(goNow, 5000);
+
+        // If user taps the button first, navigate immediately and cancel timer
+        document.getElementById("seeMore")?.addEventListener("click", () => {
+          if (!navigated) {
+            clearTimeout(timer);
+            navigated = true; // allow anchor to navigate
+          }
+        }, { passive: true });
+      })();
     </script>
   </body>
 </html>
